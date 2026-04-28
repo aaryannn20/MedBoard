@@ -76,10 +76,7 @@ src/
    ```
    Edit `.env` and fill in your Firebase project credentials.
 
-3. **Create a test user**
-   Go to your Firebase Console → Authentication → Users → Add User.
-
-4. **Start dev server**
+3. **Start dev server**
    ```bash
    npm run dev
    ```

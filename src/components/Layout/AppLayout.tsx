@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import {
-  LayoutDashboard, BarChart3, Users, Bell, LogOut, Menu, X, Heart,
+  LayoutDashboard, BarChart3, Users, Bell, LogOut, Menu, Heart,
 } from 'lucide-react';
 import { useAuthStore } from '@/stores/authStore';
 import { useNotificationStore } from '@/stores/notificationStore';

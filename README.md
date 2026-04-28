@@ -2,6 +2,8 @@
 
 A modern healthcare platform UI built with React, TypeScript, Zustand, and Firebase Authentication.
 
+**Live Demo:** [https://medboard-black.vercel.app](https://medboard-black.vercel.app)
+
 ## Features
 
 - **Authentication** — Firebase email/password login with session handling, validation, and error states

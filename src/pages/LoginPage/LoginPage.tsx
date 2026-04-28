@@ -5,19 +5,24 @@ import { Heart, Mail, Lock, AlertCircle, Loader2 } from 'lucide-react';
 import styles from './LoginPage.module.css';
 
 export default function LoginPage() {
-  const { signIn, error, loading, clearError, user } = useAuthStore();
+  const { signIn, signUp, error, loading, clearError, user } = useAuthStore();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isSignUp, setIsSignUp] = useState(false);
 
   if (user) {
     return <Navigate to="/" replace />;
   }
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!email.trim() || !password.trim()) return;
     try {
-      await signIn(email, password);
+      if (isSignUp) {
+        await signUp(email, password);
+      } else {
+        await signIn(email, password);
+      }
     } catch {
       // error is set in store
     }
@@ -30,9 +35,8 @@ export default function LoginPage() {
           <Heart size={32} />
           <span>MedBoard</span>
         </div>
-        <h1 className={styles.title}>Welcome back</h1>
-        <p className={styles.subtitle}>Sign in to your healthcare dashboard</p>
-
+        <h1 className={styles.title}>{isSignUp ? 'Create account' : 'Welcome back'}</h1>
+        <p className={styles.subtitle}>{isSignUp ? 'Sign up for your healthcare dashboard' : 'Sign in to your healthcare dashboard'}</p>
         {error && (
           <div className={styles.error}>
             <AlertCircle size={16} />
@@ -75,12 +79,13 @@ export default function LoginPage() {
           </div>
 
           <button type="submit" className={styles.submit} disabled={loading}>
-            {loading ? <Loader2 size={20} className={styles.spinner} /> : 'Sign In'}
+            {loading ? <Loader2 size={20} className={styles.spinner} /> : isSignUp ? 'Create Account' : 'Sign In'}
           </button>
         </form>
 
         <p className={styles.footer}>
-          Demo: create an account in your Firebase console, then use those credentials here.
+          {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '} 
+          <button type="button" className={styles.toggleAuth} onClick={() => { setIsSignUp(!isSignUp); clearError(); }} > {isSignUp ? 'Sign In' : 'Sign Up'} </button>
         </p>
       </div>
     </div>
